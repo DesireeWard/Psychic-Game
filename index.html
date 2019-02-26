@@ -1,0 +1,92 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psychic Game</title>
+    <a href="./assets/css/reset.css"></a>
+    <a href="./assets/css/style.css"></a>
+</head>
+
+<body>
+
+    <div>
+        <h1 id="directions">Guess what letter I'm thinking of...</h1>
+        <p>Wins: <span id="winsCounter">0</span></p>
+        <p>Losses: <span id="lossesCounter">0</span></p>
+        <p>Guesses Left: <span id="guessesLeftcounter">10</span></p>
+        <p>Your Guesses so Far: <span id="guessesSoFar">[]</span></p>
+    </div>
+
+    <script type="text/javascript">
+        // <script src="">
+
+        var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
+            "s", "t", "u", "v", "w", "x", "y", "z"
+        ];
+
+        var wins = 0;
+        var losses = 0;
+        var guessesLeft = 10;
+        var guessesSoFar = [];
+        var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        var winsElement = document.getElementById("winsCounter");
+        var lossesElement = document.getElementById("lossesCounter");
+        var guessesLeftElement = document.getElementById("guessesLeftcounter");
+        var guessesSoFarElement = document.getElementById("guessesSoFar");
+
+        //add all element variables
+
+
+        // user guesses
+        document.onkeyup = function (event) {
+            var userguess = event.key.toLowerCase();
+            console.log(userguess)
+            // if correct
+            if (userguess === computerGuess) {
+                // you win
+                //increment wins
+                wins++;
+                //change wins element
+                winsElement.textContent = wins;
+                // user sees that they won
+                alert("You won!");
+                //set guesses left to 10
+                guessesLeft = 10;
+                //change guessesleft element
+                guessesLeftElement.textContent = guessesLeft;
+                guessesSoFar = [];
+                guessesSoFarElement.textContent = "[]";
+
+                // if wrong
+            } else {
+                // if guesses left
+                if (guessesLeft > 0) {
+                    //decrement guesses left
+                    guessesLeft--;
+                    //put it on the screen
+                    guessesLeftElement.textContent = guessesLeft;
+                    // add users guess to guesses so far 
+                    guessesSoFar.push(userguess);
+                    //show user guesses so far
+                    guessesSoFarElement.textContent = guessesSoFar;
+                } else {
+                    //if no guesses left
+                    //show user they lost
+                    alert("You Lost!");
+                    //increment losses
+                    losses++
+                    //put it on the screen
+                    lossesElement.textContent = losses;
+                    guessesLeft = 10;
+                    guessesLeftElement.textContent = guessesLeft;
+                    guessesSoFar = [];
+                    guessesSoFarElement.textContent = '[]';
+                }
+            }
+        };
+    </script>
+</body>
+
+</html>
